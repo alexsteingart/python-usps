@@ -74,6 +74,7 @@ class USPSAddressService(object):
     
     def execute(self, userid, addresses):
         xml = self.make_xml(userid, addresses)
+        
         return self.parse_xml(self.submit_xml(xml))
 
 class AddressValidate(USPSAddressService):
@@ -104,3 +105,16 @@ class CityStateLookup(USPSAddressService):
     API = 'CityStateLookup'
     PARAMETERS = ['Zip5',]
 
+class CarrierPickupAvailability(USPSAddressService):
+    SERVICE_NAME = 'CarrierPickupAvailability'
+    API = 'CarrierPickupAvailability'
+    PARAMETERS = ['FirmName',
+                  'SuiteOrApt',
+                  'Address2',
+                  'Ubanization',
+                  'City',
+                  'State',
+                  'ZIP5',
+                  'ZIP4',
+                  'DATE',
+                  ]

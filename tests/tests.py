@@ -14,7 +14,7 @@ class TestAddressInformationAPI(unittest.TestCase):
         self.assertEqual(response['City'], 'GREENBELT')
         self.assertEqual(response['State'], 'MD')
         self.assertEqual(response['Zip5'], '20770')
-        self.assertEqual(response['Zip4'], '1440')
+        self.assertEqual(response['Zip4'], '1441')
         
         response = connector.execute(USERID, [{'Address2':'8 Wildwood Drive',
                                                'City':'Old Lyme',
@@ -35,7 +35,7 @@ class TestAddressInformationAPI(unittest.TestCase):
         self.assertEqual(response['City'], 'GREENBELT')
         self.assertEqual(response['State'], 'MD')
         self.assertEqual(response['Zip5'], '20770')
-        self.assertEqual(response['Zip4'], '1440')
+        self.assertEqual(response['Zip4'], '1441')
         
         response = connector.execute(USERID, [{'Address2':'8 Wildwood Drive',
                                                'City':'Old Lyme',
@@ -58,6 +58,19 @@ class TestAddressInformationAPI(unittest.TestCase):
         self.assertEqual(response['City'], 'GREENBELT')
         self.assertEqual(response['State'], 'MD')
         self.assertEqual(response['Zip5'], '20770')
+        
+    def test_carriar_availability_validate(self):
+        connector = CarrierPickupAvailability(USPS_CONNECTION_TEST_SECURE)
+        response = connector.execute(USERID, [{'Address2':'6406 Ivy Lane',
+                                               'City':'Greenbelt',
+                                               'State':'MD'}])[0]
+        print response
+        
+        response = connector.execute(USERID, [{'Address2':'8 Wildwood Drive',
+                                               'City':'Old Lyme',
+                                               'State':'CT',
+                                               'Zip5':'06371',}])[0]
+        print response
 
 if __name__ == '__main__':
     #please append your USPS USERID to test against the wire
